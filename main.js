@@ -1,5 +1,6 @@
-import * as THREE from 'https://cdn.skypack.dev/three';
-import { PointerLockControls } from 'https://cdn.skypack.dev/three/examples/jsm/controls/PointerLockControls.js';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three/build/three.module.js';
+import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/PointerLockControls.js';
+
 
 
 //import * as THREE from 'three';
