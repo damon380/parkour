@@ -1,5 +1,9 @@
-import * as THREE from 'three';
-import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import * as THREE from 'https://cdn.skypack.dev/three';
+import { PointerLockControls } from 'https://cdn.skypack.dev/three/examples/jsm/controls/PointerLockControls.js';
+
+
+//import * as THREE from 'three';
+//import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
 // Scene Setup
 const scene = new THREE.Scene();
