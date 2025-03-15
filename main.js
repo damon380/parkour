@@ -2,7 +2,6 @@
 //import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/PointerLockControls.js';
 
 
-
 import * as THREE from 'three';
 import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 import { generateBuildings } from './buildings.js';
