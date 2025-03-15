@@ -1,1 +1,21 @@
+{
+  "name": "parkour",
+  "version": "1.0.0",
+  "description": "Parkour over Chongqing",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damon380/parkour.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/damon380/parkour/issues"
+  },
+  "homepage": "https://github.com/damon380/parkour#readme"
+}
 
