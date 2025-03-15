@@ -8,7 +8,7 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Add a cube to the scene
+// Add a stationary cube to the scene
 const geometry = new THREE.BoxGeometry();
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
@@ -21,16 +21,15 @@ const controls = new PointerLockControls(camera, document.body);
 scene.add(controls.getObject());
 
 let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
-let velocity = new THREE.Vector3();
 const speed = 0.2;
 
 // Event listeners for key presses
 document.addEventListener('keydown', (event) => {
   switch (event.code) {
-    case 'KeyW': moveForward = true; break;
-    case 'KeyS': moveBackward = true; break;
-    case 'KeyA': moveLeft = true; break;
-    case 'KeyD': moveRight = true; break;
+    case 'KeyW': moveForward = true; break; // Move forward
+    case 'KeyS': moveBackward = true; break; // Move backward
+    case 'KeyA': moveLeft = true; break; // Move left
+    case 'KeyD': moveRight = true; break; // Move right
   }
 });
 
@@ -54,14 +53,18 @@ function animate() {
 
   // Update player movement
   const delta = 0.016; // Approximate frame time
-  velocity.z = (moveForward ? 1 : 0) - (moveBackward ? 1 : 0);
-  velocity.x = (moveRight ? 1 : 0) - (moveLeft ? 1 : 0);
 
-  if (moveForward || moveBackward) {
-    controls.moveForward(velocity.z * speed * delta);
+  if (moveForward) {
+    controls.moveForward(speed * delta); // Move camera forward
   }
-  if (moveLeft || moveRight) {
-    controls.moveRight(velocity.x * speed * delta);
+  if (moveBackward) {
+    controls.moveForward(-speed * delta); // Move camera backward
+  }
+  if (moveLeft) {
+    controls.moveRight(-speed * delta); // Move camera left
+  }
+  if (moveRight) {
+    controls.moveRight(speed * delta); // Move camera right
   }
 
   renderer.render(scene, camera);
