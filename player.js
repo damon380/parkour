@@ -5,8 +5,7 @@ export function setupPlayerControls(scene, camera) {
   scene.add(controls.getObject());
 
   let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
-  let velocity = new THREE.Vector3();
-  const speed = 0.2;
+  const speed = 5;
 
   // Event listeners for key presses
   document.addEventListener('keydown', (event) => {
@@ -34,15 +33,10 @@ export function setupPlayerControls(scene, camera) {
 
   return {
     update(delta) {
-      velocity.z = (moveForward ? 1 : 0) - (moveBackward ? 1 : 0);
-      velocity.x = (moveRight ? 1 : 0) - (moveLeft ? 1 : 0);
-
-      if (moveForward || moveBackward) {
-        controls.moveForward(velocity.z * speed * delta);
-      }
-      if (moveLeft || moveRight) {
-        controls.moveRight(velocity.x * speed * delta);
-      }
+      if (moveForward) controls.moveForward(speed * delta);
+      if (moveBackward) controls.moveForward(-speed * delta);
+      if (moveLeft) controls.moveRight(-speed * delta);
+      if (moveRight) controls.moveRight(speed * delta);
     },
   };
 }
