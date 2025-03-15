@@ -1,10 +1,12 @@
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three/build/three.module.js';
-import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/PointerLockControls.js';
+//import * as THREE from 'https://cdn.jsdelivr.net/npm/three/build/three.module.js';
+//import { PointerLockControls } from 'https://cdn.jsdelivr.net/npm/three/examples/jsm/controls/PointerLockControls.js';
 
 
 
-//import * as THREE from 'three';
-//import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import * as THREE from 'three';
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import { generateBuildings } from './buildings.js';
+import { setupPlayerControls } from './player.js';
 
 // Scene Setup
 const scene = new THREE.Scene();
@@ -13,64 +15,28 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Add a stationary cube to the scene
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+directionalLight.position.set(10, 10, 10);
+scene.add(directionalLight);
 
-camera.position.z = 5;
+// Generate Buildings
+generateBuildings(scene);
 
-// Player Controls
-const controls = new PointerLockControls(camera, document.body);
-scene.add(controls.getObject());
+// Set up Player Controls
+const playerControls = setupPlayerControls(scene, camera);
 
-let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
-const speed = 0.2;
-
-// Event listeners for key presses
-document.addEventListener('keydown', (event) => {
-  switch (event.code) {
-    case 'KeyW': moveForward = true; break; // Move forward
-    case 'KeyS': moveBackward = true; break; // Move backward
-    case 'KeyA': moveLeft = true; break; // Move left
-    case 'KeyD': moveRight = true; break; // Move right
-  }
-});
-
-document.addEventListener('keyup', (event) => {
-  switch (event.code) {
-    case 'KeyW': moveForward = false; break;
-    case 'KeyS': moveBackward = false; break;
-    case 'KeyA': moveLeft = false; break;
-    case 'KeyD': moveRight = false; break;
-  }
-});
-
-// Lock pointer on click
-document.addEventListener('click', () => {
-  controls.lock();
-});
+// Camera Position
+camera.position.set(0, 10, 50); // Start above the ground
 
 // Animation Loop
 function animate() {
   requestAnimationFrame(animate);
 
-  // Update player movement
-  const delta = 0.016; // Approximate frame time
-
-  if (moveForward) {
-    controls.moveForward(speed * delta); // Move camera forward
-  }
-  if (moveBackward) {
-    controls.moveForward(-speed * delta); // Move camera backward
-  }
-  if (moveLeft) {
-    controls.moveRight(-speed * delta); // Move camera left
-  }
-  if (moveRight) {
-    controls.moveRight(speed * delta); // Move camera right
-  }
+  // Update player controls
+  playerControls.update(0.016); // Approximate frame time
 
   renderer.render(scene, camera);
 }
